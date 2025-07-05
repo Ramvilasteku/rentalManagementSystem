@@ -1,0 +1,55 @@
+.navbar {
+  background: #6cd1d178;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.links {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
+.linksnav {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
+
+
+
+
+.linkhead {
+  display: flex;
+  justify-content: start;
+  color: black;
+  font-size: larger;
+  font-weight: 600;
+  text-decoration: none;
+}
+.linkTags {
+  color: black;
+  font-size: larger;
+  font-weight: 600;
+  text-decoration: none;
+}
+.linkTags:hover{
+border-bottom:2px solid ;
+}
+
+
+
+@media screen and (max-width:780px) { 
+  
+.links {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+  
+}
+

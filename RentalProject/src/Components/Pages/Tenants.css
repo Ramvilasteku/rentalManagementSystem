@@ -1,0 +1,125 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.tenantMainDiv {
+  display: flex;
+  gap: 0;
+  margin: 2%;
+  justify-content: center;
+  margin-right: 20%;
+}
+
+.tenantImg {
+  width: 48%;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.tenantform h2 {
+  text-align: center;
+  font-weight: 600;
+  background: linear-gradient(to right, #7873f5, #ff4ab6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.tenantform {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 200%;
+  padding: 15%;
+  height: 100%;
+  background: #6cd1d1a4;
+  border-radius: 20px;
+}
+
+label {
+  color: rgb(0, 0, 0);
+  /* text-align: center; */
+  margin: 0 0 0 10px;
+  font-weight: 500;
+}
+p {
+  color: rgb(255, 0, 0);
+  /* text-align: center; */
+  margin: 0 0 0 10px;
+  font-weight: 500;
+}
+
+.span {
+  color: rgb(255, 0, 0);
+}
+
+.tenantform input,
+textarea {
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 5px;
+  background: rgb(255, 255, 255);
+  box-shadow: 5px 5px 10px rgba(179, 180, 176, 0.813);
+}
+
+.tenantform .submitBtn {
+  /* width: 150px; */
+  height: 40px;
+  font-size: large;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(145deg, #4d47f3, #ff6ec5);
+  color: white;
+  font-weight: 600;
+  margin: 30px 0;
+
+  text-align: center;
+}
+
+.tenantform .submitBtn:hover {
+  background: linear-gradient(145deg, #7773f5c3, #ff6ec5ca);
+  /* background: linear-gradient(to right , rgba(0, 255, 255, 0.5), rgba(166, 0, 255, 0.435)); */
+}
+
+@media screen and (max-width: 780px) {
+  .tenantMainDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0% 15%;
+    margin-right: 20%;
+  }
+
+  .tenantImg {
+    width: 100%;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 0px;
+  }
+
+  .tenantform {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    background: #6cd1d1a4;
+    padding: 15%;
+    height: 100%;
+  }
+
+  .tenantform .submitBtn {
+    /* width: 150px; */
+    height: 40px;
+    font-size: large;
+    border-radius: 10px;
+    margin: 30px 0;
+    border: 3px solid rgb(50, 79, 84);
+    text-align: center;
+    margin: 5% 0% 0;
+  }
+}
