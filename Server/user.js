@@ -16,7 +16,7 @@ const db = sql.createConnection({
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/users', (req, res) => {
 	const sql = `SELECT * FROM users`;
 	db.query(sql, (err, result) => {
 		if (err)
@@ -25,32 +25,22 @@ app.get('/', (req, res) => {
 	})
 })
 
-app.post('/', (req, res) => {
-	const { username, useremail, usermobileno, userpassword, usernoofunits } = req.body;
-	const query = `INSERT INTO users(username,useremail,usermobileno,userpassword,usernoofunits) VALUES (?, ?, ?, ?, ?);`
-	db.query(query, [username, useremail, usermobileno, userpassword, usernoofunits], (err, result) => {
+app.post('/users', (req, res) => {
+	const { userName, userMail, userPassword, userPhoneNumber, noOfUnits } = req.body;
+	const query = `INSERT INTO users (userName, userMail, userPassword, userPhoneNumber, noOfUnits) VALUES (?, ?, ?, ?, ?)`;
+	db.query(query, [userName, userMail, userPassword, userPhoneNumber, noOfUnits], (err, result) => {
 		if (err) {
-			return res.status(500).json({ message: 'error Occured' })
+			return res.status(500).json({ message: 'error Occured',err })
 		}
 		res.status(200).json({ status: "success", message: "new user added" })
 	})
 })
 
-app.put('/', (req, res) => {
-	const {username, id} = req.body;
+app.put('/users', (req, res) => {
+	const { userName, userMail, userPassword, userPhoneNumber, noOfUnits, userId } = req.body;
 	// const id = req.params.id;
-	const query = `UPDATE  users SET username = ? WHERE id = ?`
-	db.query(query, [username, id ], (err, result) => {
-		if (err) return res.status(500).json({ message: "Error Occured" })
-		return res.status(200).json({ status: "success", message: "new user added" })
-	})
-})
-
-app.put('/', (req, res) => {
-	const {username, id} = req.body;
-	// const id = req.params.id;
-	const query = `UPDATE  users SET username = ? WHERE id = ?`
-	db.query(query, [username, id ], (err, result) => {
+	const query = `  UPDATE users SET userName = ?, userMail = ?, userPassword = ?, userPhoneNumber = ?, noOfUnits = ? WHERE userId = ?`
+	db.query(query, [userName, userMail, userPassword, userPhoneNumber, noOfUnits, userId], (err, result) => {
 		if (err) return res.status(500).json({ message: "Error Occured" })
 		return res.status(200).json({ status: "success", message: "new user added" })
 	})
@@ -58,10 +48,11 @@ app.put('/', (req, res) => {
 
 
 
-app.delete('/', (req, res) => {
-	const {id} = req.body;
-	const query = `DELETE FROM users WHERE id = ?`
-	db.query(query, [ id ], (err, result) => {
+
+app.delete('/users', (req, res) => {
+	const { userId } = req.body;
+	const query = `DELETE FROM users WHERE userId = ?`
+	db.query(query, [userId], (err, result) => {
 		if (err) return res.status(500).json({ message: "Error Occured" })
 		return res.status(200).json({ status: "success", message: "new user added" })
 	})

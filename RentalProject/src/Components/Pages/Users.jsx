@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Users.css";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Users = () => {
   const [userValues, setUserValues] = useState({
@@ -17,7 +18,9 @@ const Users = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
+  const validate = (e) => {
+    e.preventDefault();
+
     const newErrors = {};
 
     if (!userValues.userName) {
@@ -44,38 +47,55 @@ const Users = () => {
     if (!userValues.noOfUnits)
       newErrors.noOfUnits = "Number of units is required";
 
-
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  if (Object.keys(newErrors).length === 0) {
+    // If no errors, proceed to submit form
+    axios
+      .post("http://localhost:5000/users", userValues)
+      .then((res) => {
+        console.log(res);
+        setUserValues({
+          userName: "",
+          userMail: "",
+          userPassword: "",
+          userPhoneNumber: "",
+          noOfUnits: "",
+        });
+        setErrors({});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    if (validate()) {
-      Swal.fire({
-        title: "Submitted Successfully!",
-        icon: "success",
-        draggable: true,
-      });
-      console.log("submited", userValues);
+  //   if (validate()) {
+  //     Swal.fire({
+  //       title: "Submitted Successfully!",
+  //       icon: "success",
+  //       draggable: true,
+  //     });
+  //     console.log("submited", userValues);
 
-      setUserValues({
-        userName: "",
-        userMail: "",
-        userPassword: "",
-        userPhoneNumber: "",
-        noOfUnits: "",
-      });
-      setErrors({});
-    } else {
-      Swal.fire({
-        title: "Enter all Fields!",
-        icon: "error",
-        draggable: true,
-      });
-    }
-  };
+  //     setUserValues({
+  //       userName: "",
+  //       userMail: "",
+  //       userPassword: "",
+  //       userPhoneNumber: "",
+  //       noOfUnits: "",
+  //     });
+  //     setErrors({});
+  //   } else {
+  //     Swal.fire({
+  //       title: "Enter all Fields!",
+  //       icon: "error",
+  //       draggable: true,
+  //     });
+  //   }
+  // };
 
   return (
     <div>
@@ -87,9 +107,9 @@ const Users = () => {
         /> */}
 
         <div className="userFormDiv">
-          <form onSubmit={handleSubmit} className="userForm">
+          <form onSubmit={validate} className="userForm">
             <h2>User Detail Form</h2>
-          
+
             <label htmlFor="">User Name</label>
             <input
               onChange={handelChanges}

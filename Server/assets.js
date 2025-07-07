@@ -13,7 +13,7 @@ const db = sql.createConnection({
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/assets', (req, res) => {
 	const sql = `SELECT * FROM assets`;
 	db.query(sql, (err, result) => {
 		if (err) {
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.post('/', (req, res) => {
+app.post('/assets', (req, res) => {
 	const { assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription } = req.body;
 	const sql = `INSERT INTO assets (assetName, assetType, assetCost, assetStatus, assetLocation,unitNumber, lastMaintenanceDate, nextMaintenanceDate,assetPurchesDate, warrentyEndDate, assetDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 	db.query(sql, [assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription], (err, result) => {
@@ -36,7 +36,7 @@ app.post('/', (req, res) => {
 
 })
 
-app.put('/', (req, res) => {
+app.put('/assets', (req, res) => {
 	const { assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId } = req.body;
 	const sql = `UPDATE assets SET assetName = ?, assetType = ? , assetCost = ? , assetStatus = ? , assetLocation = ? ,unitNumber = ? , lastMaintenanceDate = ? , nextMaintenanceDate = ? ,assetPurchesDate = ? , warrentyEndDate = ? , assetDescription = ? WHERE  assetId = ?`;
 	db.query(sql, [assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId], (err, result) => {
@@ -49,7 +49,7 @@ app.put('/', (req, res) => {
 })
 
 app.delete("/", (req, res) => {
-	const assetId = req.body;
+	const {assetId} = req.body;
 	const sql = `DELETE FROM assets WHERE assetId = ?`;
 	db.query(sql, [assetId], (err, result) => {
 		if (err) {

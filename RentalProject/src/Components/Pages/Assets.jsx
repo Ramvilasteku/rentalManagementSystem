@@ -36,6 +36,7 @@ const Assets = () => {
 
     if (!assetsValues.assetStatus)
       newErrors.assetStatus = "Asset status is required";
+    
     if (!assetsValues.assetLocation)
       newErrors.assetLocation = "Asset location is required";
 
@@ -129,17 +130,39 @@ const Assets = () => {
               <label htmlFor="">
                 Asset Type:<span className="span">*</span>
               </label>
-              <select name="" id="select">
-                <option className="option" value="" selected>Select Asset Type... </option>
-                <option className="option" value="">Elevators </option>
-                <option className="option" value="">Escalators </option>
-                <option className="option" value="">Generators </option>
-                <option className="option" value="">Transformers </option>
-                <option className="option" value="">Lighting Systems</option>
-                <option className="option" value="">Water Pumps </option>
-                <option className="option" value="">Air Conditioning Units</option>
+              <select
+                value={assetsValues.assetType}
+                name="assetType"
+                onChange={handleChanges}
+                id="select"
+              >
+                <option className="option"  selected>
+                  Select Asset Type...
+                </option>
+                <option className="option" value="Elevators">
+                  Elevators
+                </option>
+                <option className="option" value="Escalators">
+                  Escalators
+                </option>
+                <option className="option" value="Generators">
+                  Generators
+                </option>
+                <option className="option" value="Transformers">
+                  Transformers
+                </option>
+                <option className="option" value="Lighting Systems">
+                  Lighting Systems
+                </option>
+                <option className="option" value="Water Pumps">
+                  Water Pumps
+                </option>
+                <option className="option" value=" Air Conditioning Units">
+                  Air Conditioning Units
+                </option>
               </select>
               {errors.assetType && <p>{errors.assetType}</p>}
+              
               <label htmlFor="">
                 Asset Cost:<span className="span">*</span>
               </label>
@@ -154,19 +177,25 @@ const Assets = () => {
               <label htmlFor="">
                 Asset Status:<span className="span">*</span>
               </label>
-              {/* <input
-                type="text"
+            
+              <select
                 name="assetStatus"
-                id=""
-                value={assetsValues.assetStatus}
                 onChange={handleChanges}
-              /> */}
-
-              <select name="" id="select">
-                <option className="option" value=""   onChange={handleChanges} selected>Select Asset Status... </option>
-                <option className="option" value=""   onChange={handleChanges}>Good</option>
-                <option className="option" value=""   onChange={handleChanges}>Average</option>
-                <option className="option" value=""   onChange={handleChanges}>Bad</option>
+                value={assetsValues.assetStatus}
+                id="select"
+              >
+                <option className="option" value="">
+                  Select Asset Status...
+                </option>
+                <option className="option" value="Good">
+                  Good
+                </option>
+                <option className="option" value="Average">
+                  Average
+                </option>
+                <option className="option" value="Bad">
+                  Bad
+                </option>
               </select>
               {errors.assetStatus && <p>{errors.assetStatus}</p>}
 

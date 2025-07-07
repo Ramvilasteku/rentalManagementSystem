@@ -14,7 +14,7 @@ const db = sql.createConnection({
 app.use(express.json());
 
 
-app.get('/tenant', (req, res) => {
+app.get('/tenants', (req, res) => {
 	const sql = `SELECT * FROM tenant`;
 	db.query(sql, (err, result) => {
 		if (err)
@@ -24,7 +24,7 @@ app.get('/tenant', (req, res) => {
 })
 
 
-app.post('/tenant', (req, res) => {
+app.post('/tenants', (req, res) => {
 	const { tenantName, tenantMail, tenantPhoneNo, unitNumber, noofUnit, tenantRentAmount, tenantSecurityDeposit, tenantStartDate, tenantEndDate } = req.body;
 	const query = `INSERT INTO tenant( tenantName, tenantMail, tenantPhoneNo,unitNumber, noofUnit, tenantRentAmount,tenantSecurityDeposit, tenantStartDate, tenantEndDate) VALUES (?,?,?,?,?,?,?,?,?)`;
 	db.query(query, [tenantName, tenantMail, tenantPhoneNo, unitNumber, noofUnit, tenantRentAmount, tenantSecurityDeposit, tenantStartDate, tenantEndDate], (err, result) => {
@@ -36,7 +36,7 @@ app.post('/tenant', (req, res) => {
 })
 
 
-app.put('/tenant', (req, res) => {
+app.put('/tenants', (req, res) => {
 	const { tenantName, tenantMail, tenantPhoneNo, unitNumber, noofUnit, tenantRentAmount, tenantSecurityDeposit, tenantStartDate, tenantEndDate, tenantId } = req.body;
 	const query = `
     UPDATE tenant
@@ -53,10 +53,10 @@ app.put('/tenant', (req, res) => {
 	})
 })
 
-app.delete('/tenant', (req, res) => {
-	const {tenantId} = req.body;
+app.delete('/tenants', (req, res) => {
+	const { tenantId } = req.body;
 	const query = `DELETE FROM tenant WHERE tenantId = ?`
-	db.query(query, [ tenantId ], (err, result) => {
+	db.query(query, [tenantId], (err, result) => {
 		if (err) return res.status(500).json({ message: "Error Occured" })
 		return res.status(200).json({ status: "success", message: "new user added" })
 	})
