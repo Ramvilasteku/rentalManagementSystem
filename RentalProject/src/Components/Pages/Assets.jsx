@@ -163,10 +163,10 @@ const Assets = () => {
               /> */}
 
               <select name="" id="select">
-                <option className="option" value="" selected>Select Asset Status... </option>
-                <option className="option" value="">Good</option>
-                <option className="option" value="">Average</option>
-                <option className="option" value="">Bad</option>
+                <option className="option" value=""   onChange={handleChanges} selected>Select Asset Status... </option>
+                <option className="option" value=""   onChange={handleChanges}>Good</option>
+                <option className="option" value=""   onChange={handleChanges}>Average</option>
+                <option className="option" value=""   onChange={handleChanges}>Bad</option>
               </select>
               {errors.assetStatus && <p>{errors.assetStatus}</p>}
 
@@ -220,7 +220,7 @@ const Assets = () => {
                 value={assetsValues.warrentyEndDate}
                 onChange={handleChanges}
               />
-              {errors.warrentyEndDate && <p>{errors.assetName}</p>}
+              {errors.warrentyEndDate && <p>{errors.warrentyEndDate}</p>}
 
               <label htmlFor="">
                 Description:<span className="span">*</span>
