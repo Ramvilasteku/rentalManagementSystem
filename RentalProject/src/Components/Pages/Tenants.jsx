@@ -68,7 +68,7 @@ const Tenants = () => {
 
     if (Object.keys(newErrors).length === 0) {
       axios
-        .post("http://localhost:8080/tenants", tenantValues)
+        .post("http://localhost:8080/tenant", tenantValues)
         .then((res) => {
           console.log(res);
           Swal.fire({
