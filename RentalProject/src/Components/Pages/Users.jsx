@@ -48,11 +48,10 @@ const Users = () => {
       newErrors.noOfUnits = "Number of units is required";
 
     setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) {
-      // If no errors, proceed to submit form
 
-      axios
-        .post("http://localhost:4000/users", userValues)
+    if (Object.keys(newErrors).length === 0) {
+
+      axios.post("http://localhost:8080/users", userValues)
         .then((res) => {
           console.log(res);
           Swal.fire({
@@ -72,12 +71,12 @@ const Users = () => {
         .catch((err) => {
           console.log(err);
         });
-    }else{
-        Swal.fire({
-            title: "Enter all Fields!",
-            icon: "error",
-            draggable: true,
-          });
+    } else {
+      Swal.fire({
+        title: "Enter all Fields!",
+        icon: "error",
+        draggable: true,
+      });
     }
   };
 

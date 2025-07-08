@@ -1,5 +1,7 @@
 const express = require('express');
+
 const sql = require("mysql2");
+
 const cors = require("cors");
 
 
@@ -17,6 +19,7 @@ const db = sql.createConnection({
 })
 
 app.use(express.json());
+
 app.use(cors({
 	origin: "http://localhost:5173",
 	methods: ["GET", "POST", "PUT", "DELETE"],
@@ -65,6 +68,7 @@ app.delete('/users', (req, res) => {
 
 
 
-app.listen(4000, () => {
+
+app.listen(8080, () => {
 	console.log("server stated at users");
 })

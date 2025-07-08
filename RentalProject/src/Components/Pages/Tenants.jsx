@@ -25,6 +25,7 @@ const Tenants = () => {
 
   const validate = (e) => {
     e.preventDefault();
+
     const newErrors = {};
 
     if (!tenantValues.tenantName)
@@ -67,7 +68,7 @@ const Tenants = () => {
 
     if (Object.keys(newErrors).length === 0) {
       axios
-        .post("http://localhost:4000/tenants", tenantValues)
+        .post("http://localhost:8080/tenants", tenantValues)
         .then((res) => {
           console.log(res);
           Swal.fire({
@@ -90,6 +91,12 @@ const Tenants = () => {
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title: "Error!",
+            err,
+            icon: "error",
+            draggable: true,
+          });
         });
     } else {
       Swal.fire({

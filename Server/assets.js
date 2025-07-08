@@ -31,9 +31,9 @@ app.get('/assets', (req, res) => {
 })
 
 app.post('/assets', (req, res) => {
-	const { assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription } = req.body;
-	const sql = `INSERT INTO assets (assetName, assetType, assetCost, assetStatus, assetLocation,unitNumber, lastMaintenanceDate, nextMaintenanceDate,assetPurchesDate, warrentyEndDate, assetDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-	db.query(sql, [assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription], (err, result) => {
+	const { assetName, assetType, assetCost, assetStatus,  lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription } = req.body;
+	const sql = `INSERT INTO assets (assetName, assetType, assetCost, assetStatus, lastMaintenanceDate, nextMaintenanceDate,assetPurchesDate, warrentyEndDate, assetDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+	db.query(sql, [assetName, assetType, assetCost, assetStatus, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription], (err, result) => {
 		if (err) {
 			return res.status(500).json({ message: "Eroor Occured", err });
 		}
@@ -43,9 +43,9 @@ app.post('/assets', (req, res) => {
 })
 
 app.put('/assets', (req, res) => {
-	const { assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId } = req.body;
-	const sql = `UPDATE assets SET assetName = ?, assetType = ? , assetCost = ? , assetStatus = ? , assetLocation = ? ,unitNumber = ? , lastMaintenanceDate = ? , nextMaintenanceDate = ? ,assetPurchesDate = ? , warrentyEndDate = ? , assetDescription = ? WHERE  assetId = ?`;
-	db.query(sql, [assetName, assetType, assetCost, assetStatus, assetLocation, unitNumber, lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId], (err, result) => {
+	const { assetName, assetType, assetCost, assetStatus,  lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId } = req.body;
+	const sql = `UPDATE assets SET assetName = ?, assetType = ? , assetCost = ? , assetStatus = ? , lastMaintenanceDate = ? , nextMaintenanceDate = ? ,assetPurchesDate = ? , warrentyEndDate = ? , assetDescription = ? WHERE  assetId = ?`;
+	db.query(sql, [assetName, assetType, assetCost, assetStatus,  lastMaintenanceDate, nextMaintenanceDate, assetPurchesDate, warrentyEndDate, assetDescription, assetId], (err, result) => {
 		if (err) {
 			return res.status(500).json({ message: "Eroor Occured", err });
 		}
@@ -67,7 +67,7 @@ app.delete("/assets", (req, res) => {
 
 
 
-app.listen(4000, () => {
+app.listen(8080, () => {
 	console.log("server started at assets");
 
 })

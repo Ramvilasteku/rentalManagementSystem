@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import Swal from "sweetalert2";
 import "./Assets.css";
-// import axios from "axios";
+import axios from "axios";
 
 const Assets = () => {
   const [assetsValues, setAssetsValues] = useState({
@@ -22,7 +22,8 @@ const Assets = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
+  const validate = (e) => {
+    e.preventDefault()
     const newErrors = {};
 
     if (!assetsValues.assetName) newErrors.assetName = "Asset name is required";
@@ -57,76 +58,76 @@ const Assets = () => {
     if (!assetsValues.assetDescription >= 1) {
       newErrors.assetDescription = "Asset description contain at list one word";
     }
+    // return Object.keys(newErrors).length === 0
     setErrors(newErrors);
-    // if (Object.keys(newErrors).length === 0) {
-    //   axios
-    //     .post("http://localhost:4000/assets", assetsValues)
-    //     .then((res) => {
-    //       console.log(res);
-    //       Swal.fire({
-    //         title: "Submitted Successfully!",
-    //         icon: "success",
-    //         draggable: true,
-    //       });
-    //       setAssetsValues({
-    //         assetName: "",
-    //         assetType: "",
-    //         assetCost: "",
-    //         assetStatus: "",
-    //         lastMaintenanceDate: "",
-    //         nextMaintenanceDate: "",
-    //         assetPurchesDate: "",
-    //         warrentyEndDate: "",
-    //         assetDescription: "",
-    //       });
-    //       setErrors({});
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    //   Swal.fire({
-    //     title: "Enter all Fields!",
-    //     icon: "error",
-    //     draggable: true,
-    //   });
-    // }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      Swal.fire({
-        title: "Submitted Successfully!",
-        icon: "success",
-        draggable: true,
-      });
-      console.log("Submitted:", assetsValues);
-
-      // Reset form if needed
-      setAssetsValues({
-        assetName: "",
-        assetType: "",
-        assetCost: "",
-        assetStatus: "",
-        lastMaintenanceDate: "",
-        nextMaintenanceDate: "",
-        assetPurchesDate: "",
-        warrentyEndDate: "",
-        assetDescription: "",
-      });
-
-      setErrors({});
+    if (Object.keys(newErrors).length === 0) {
+      axios.post("http://localhost:8080/assets", assetsValues)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Submitted Successfully!",
+            icon: "success",
+            draggable: true,
+          });
+          setAssetsValues({
+            assetName: "",
+            assetType: "",
+            assetCost: "",
+            assetStatus: "",
+            lastMaintenanceDate: "",
+            nextMaintenanceDate: "",
+            assetPurchesDate: "",
+            warrentyEndDate: "",
+            assetDescription: "",
+          });
+          setErrors({});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       Swal.fire({
         title: "Enter all Fields!",
         icon: "error",
         draggable: true,
       });
-      console.log(errors);
-      
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validate()) {
+  //     Swal.fire({
+  //       title: "Submitted Successfully!",
+  //       icon: "success",
+  //       draggable: true,
+  //     });
+  //     console.log("Submitted:", assetsValues);
+
+  //     // Reset form if needed
+  //     setAssetsValues({
+  //       assetName: "",
+  //       assetType: "",
+  //       assetCost: "",
+  //       assetStatus: "",
+  //       lastMaintenanceDate: "",
+  //       nextMaintenanceDate: "",
+  //       assetPurchesDate: "",
+  //       warrentyEndDate: "",
+  //       assetDescription: "",
+  //     });
+
+  //     setErrors({});
+  //   } else {
+  //     Swal.fire({
+  //       title: "Enter all Fields!",
+  //       icon: "error",
+  //       draggable: true,
+  //     });
+  //     console.log(errors);
+      
+  //   }
+  // };
 
   return (
     <div>
@@ -139,7 +140,7 @@ const Assets = () => {
         /> */}
 
           <div className="assetFormDiv">
-            <form onSubmit={handleSubmit} className="assetForm">
+            <form onSubmit={validate} className="assetForm">
               <h2>Assets Details Form</h2>
 
               <label htmlFor="">
