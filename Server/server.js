@@ -27,7 +27,8 @@ app.use(cors({
 }))
 
 
-//USERS API
+//USERS API start
+
 app.get('/users', (req, res) => {
 	const sql = `SELECT * FROM users`;
 	db.query(sql, (err, result) => {
