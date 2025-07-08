@@ -166,12 +166,13 @@ app.delete('/tenant', (req, res) => {
 	const query = `DELETE FROM tenant WHERE tenantId = ?`
 	db.query(query, [tenantId], (err, result) => {
 		if (err) return res.status(500).json({ message: "Error Occured" })
-		return res.status(200).json({ status: "success", message: "new user added" })
+			return res.status(200).json({ status: "success", message: "new user added" })
 	})
 })
 
-
 //TENANT API START
+
+// -----------------------------------------------------------------------------------------------
 
 
 app.listen(8080, () => {
