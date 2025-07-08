@@ -73,7 +73,6 @@ app.delete('/users', (req, res) => {
 
 // -----------------------------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------------------------
 //ASSETS API START
 
 app.get('/assets', (req, res) => {
@@ -96,7 +95,7 @@ app.post('/assets', (req, res) => {
 		}
 		return res.status(200).json({ status: "success", message: "New asset added" })
 	})
-
+	
 })
 
 app.put('/assets', (req, res) => {
@@ -124,7 +123,7 @@ app.delete("/assets", (req, res) => {
 
 //ASSETS API END
 
-
+// -----------------------------------------------------------------------------------------------
 
 //TENANT API START
 
