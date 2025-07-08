@@ -48,54 +48,38 @@ const Users = () => {
       newErrors.noOfUnits = "Number of units is required";
 
     setErrors(newErrors);
-  if (Object.keys(newErrors).length === 0) {
-    // If no errors, proceed to submit form
-    axios
-      .post("http://localhost:5000/users", userValues)
-      .then((res) => {
-        console.log(res);
-        setUserValues({
-          userName: "",
-          userMail: "",
-          userPassword: "",
-          userPhoneNumber: "",
-          noOfUnits: "",
+    if (Object.keys(newErrors).length === 0) {
+      // If no errors, proceed to submit form
+
+      axios
+        .post("http://localhost:4000/users", userValues)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Submitted Successfully!",
+            icon: "success",
+            draggable: true,
+          });
+          setUserValues({
+            userName: "",
+            userMail: "",
+            userPassword: "",
+            userPhoneNumber: "",
+            noOfUnits: "",
+          });
+          setErrors({});
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setErrors({});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    }else{
+        Swal.fire({
+            title: "Enter all Fields!",
+            icon: "error",
+            draggable: true,
+          });
+    }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (validate()) {
-  //     Swal.fire({
-  //       title: "Submitted Successfully!",
-  //       icon: "success",
-  //       draggable: true,
-  //     });
-  //     console.log("submited", userValues);
-
-  //     setUserValues({
-  //       userName: "",
-  //       userMail: "",
-  //       userPassword: "",
-  //       userPhoneNumber: "",
-  //       noOfUnits: "",
-  //     });
-  //     setErrors({});
-  //   } else {
-  //     Swal.fire({
-  //       title: "Enter all Fields!",
-  //       icon: "error",
-  //       draggable: true,
-  //     });
-  //   }
-  // };
 
   return (
     <div>

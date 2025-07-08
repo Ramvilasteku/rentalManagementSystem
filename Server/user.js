@@ -1,5 +1,7 @@
 const express = require('express');
 const sql = require("mysql2");
+const cors = require("cors");
+
 
 const app = express();
 
@@ -15,6 +17,11 @@ const db = sql.createConnection({
 })
 
 app.use(express.json());
+app.use(cors({
+	origin: "http://localhost:5173",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	credentials: true
+}))
 
 app.get('/users', (req, res) => {
 	const sql = `SELECT * FROM users`;
@@ -30,7 +37,7 @@ app.post('/users', (req, res) => {
 	const query = `INSERT INTO users (userName, userMail, userPassword, userPhoneNumber, noOfUnits) VALUES (?, ?, ?, ?, ?)`;
 	db.query(query, [userName, userMail, userPassword, userPhoneNumber, noOfUnits], (err, result) => {
 		if (err) {
-			return res.status(500).json({ message: 'error Occured',err })
+			return res.status(500).json({ message: 'error Occured', err })
 		}
 		res.status(200).json({ status: "success", message: "new user added" })
 	})
@@ -47,8 +54,6 @@ app.put('/users', (req, res) => {
 })
 
 
-
-
 app.delete('/users', (req, res) => {
 	const { userId } = req.body;
 	const query = `DELETE FROM users WHERE userId = ?`
@@ -60,6 +65,6 @@ app.delete('/users', (req, res) => {
 
 
 
-app.listen(5000, () => {
-	console.log("server stated at 5000 port");
+app.listen(4000, () => {
+	console.log("server stated at users");
 })

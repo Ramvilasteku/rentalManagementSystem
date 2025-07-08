@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "./Tenants.css";
 import Users from "./Users";
+import axios from "axios";
 
 const Tenants = () => {
   const [tenantValues, setTenantValues] = useState({
@@ -22,10 +23,12 @@ const Tenants = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
+  const validate = (e) => {
+    e.preventDefault();
     const newErrors = {};
 
-    if (!tenantValues.tenantName) newErrors.tenantName = "Tenant name is required";
+    if (!tenantValues.tenantName)
+      newErrors.tenantName = "Tenant name is required";
 
     if (!tenantValues.tenantMail) {
       newErrors.tenantMail = "Email is required";
@@ -39,7 +42,8 @@ const Tenants = () => {
       newErrors.tenantPhoneNo = "Phone number must be 10 digits";
     }
 
-    if (!tenantValues.unitNumber) newErrors.unitNumber = "Unit number is required";
+    if (!tenantValues.unitNumber)
+      newErrors.unitNumber = "Unit number is required";
     if (!tenantValues.noofUnit) newErrors.noofUnit = "No. of units is required";
 
     if (!tenantValues.tenantRentAmount) {
@@ -56,38 +60,38 @@ const Tenants = () => {
 
     if (!tenantValues.tenantStartDate)
       newErrors.tenantStartDate = "Start date is required";
-    if (!tenantValues.tenantEndDate) newErrors.tenantEndDate = "End date is required";
+    if (!tenantValues.tenantEndDate)
+      newErrors.tenantEndDate = "End date is required";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      Swal.fire({
-        title: "Submitted Successfully!",
-        icon: "success",
-        draggable: true,
-      });
-      console.log("Submitted:", tenantValues);
-      
-      // Reset form if needed
-      setTenantValues({
-        tenantName: "",
-        tenantMail: "",
-        tenantPhoneNo: "",
-        unitNumber: "",
-        noofUnit: "",
-        tenantRentAmount: "",
-        tenantSecurityDeposit: "",
-        tenantStartDate: "",
-        tenantEndDate: "",
-      });
-      
-      setErrors({});
-    }
-    else{
+    if (Object.keys(newErrors).length === 0) {
+      axios
+        .post("http://localhost:4000/tenants", tenantValues)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Submitted Successfully!",
+            icon: "success",
+            draggable: true,
+          });
+          setTenantValues({
+            tenantName: "",
+            tenantMail: "",
+            tenantPhoneNo: "",
+            unitNumber: "",
+            noofUnit: "",
+            tenantRentAmount: "",
+            tenantSecurityDeposit: "",
+            tenantStartDate: "",
+            tenantEndDate: "",
+          });
+          setErrors({});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
       Swal.fire({
         title: "Enter all Fields!",
         icon: "error",
@@ -95,6 +99,40 @@ const Tenants = () => {
       });
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validate()) {
+  //     Swal.fire({
+  //       title: "Submitted Successfully!",
+  //       icon: "success",
+  //       draggable: true,
+  //     });
+  //     console.log("Submitted:", tenantValues);
+
+  //     // Reset form if needed
+  //     setTenantValues({
+  //       tenantName: "",
+  //       tenantMail: "",
+  //       tenantPhoneNo: "",
+  //       unitNumber: "",
+  //       noofUnit: "",
+  //       tenantRentAmount: "",
+  //       tenantSecurityDeposit: "",
+  //       tenantStartDate: "",
+  //       tenantEndDate: "",
+  //     });
+
+  //     setErrors({});
+  //   }
+  //   else{
+  //     Swal.fire({
+  //       title: "Enter all Fields!",
+  //       icon: "error",
+  //       draggable: true,
+  //     });
+  //   }
+  // };
 
   return (
     <div>
@@ -106,7 +144,7 @@ const Tenants = () => {
         /> */}
 
         <div className="tenantFormDiv">
-          <form onSubmit={handleSubmit} className="tenantform">
+          <form onSubmit={validate} className="tenantform">
             <h2>Tenant Details Form</h2>
 
             <label htmlFor="">
@@ -119,8 +157,8 @@ const Tenants = () => {
               value={tenantValues.tenantName}
               onChange={handleChanges}
               placeholder=""
-              />
-              {errors.tenantName && <p className="">{errors.tenantName}</p>}
+            />
+            {errors.tenantName && <p className="">{errors.tenantName}</p>}
 
             <label htmlFor="">
               Tenant Mail:<span className="span">*</span>
@@ -131,8 +169,8 @@ const Tenants = () => {
               id=""
               value={tenantValues.tenantMail}
               onChange={handleChanges}
-              />
-              {errors.tenantMail && <p className="">{errors.tenantMail}</p>}
+            />
+            {errors.tenantMail && <p className="">{errors.tenantMail}</p>}
             <label htmlFor="">
               Tenant Phone Number:<span className="span">*</span>
             </label>
@@ -142,8 +180,8 @@ const Tenants = () => {
               id=""
               value={tenantValues.tenantPhoneNo}
               onChange={handleChanges}
-              />
-              {errors.tenantPhoneNo && <p className="">{errors.tenantPhoneNo}</p>}
+            />
+            {errors.tenantPhoneNo && <p className="">{errors.tenantPhoneNo}</p>}
             <label htmlFor="">
               Unit Number:<span className="span">*</span>
             </label>
@@ -153,8 +191,8 @@ const Tenants = () => {
               id=""
               value={tenantValues.unitNumber}
               onChange={handleChanges}
-              />
-              {errors.unitNumber && <p className="">{errors.unitNumber}</p>}
+            />
+            {errors.unitNumber && <p className="">{errors.unitNumber}</p>}
             <label htmlFor="">
               Number of Units:<span className="span">*</span>
             </label>
@@ -164,8 +202,8 @@ const Tenants = () => {
               id=""
               value={tenantValues.noofUnit}
               onChange={handleChanges}
-              />
-              {errors.noofUnit && <p className="">{errors.noofUnit}</p>}
+            />
+            {errors.noofUnit && <p className="">{errors.noofUnit}</p>}
 
             <label htmlFor="">
               Tenant Rent Amount:<span className="span">*</span>
@@ -218,8 +256,8 @@ const Tenants = () => {
               id=""
               value={tenantValues.tenantEndDate}
               onChange={handleChanges}
-              />
-              {errors.tenantEndDate && <p className="">{errors.tenantEndDate}</p>}
+            />
+            {errors.tenantEndDate && <p className="">{errors.tenantEndDate}</p>}
 
             {/* <button type="button" onClick={reset} >Reset</button> */}
             <button type="submit" className="submitBtn">

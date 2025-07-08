@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import Swal from "sweetalert2";
 import "./Assets.css";
+// import axios from "axios";
 
 const Assets = () => {
   const [assetsValues, setAssetsValues] = useState({
@@ -36,13 +37,6 @@ const Assets = () => {
 
     if (!assetsValues.assetStatus)
       newErrors.assetStatus = "Asset status is required";
-    
-    if (!assetsValues.assetLocation)
-      newErrors.assetLocation = "Asset location is required";
-
-    if (!assetsValues.unitNumber) {
-      newErrors.unitNumber = "Unit number is required";
-    }
 
     if (!assetsValues.lastMaintenanceDate) {
       newErrors.lastMaintenanceDate = "Last maintenance date is required";
@@ -57,14 +51,46 @@ const Assets = () => {
     }
 
     if (!assetsValues.warrentyEndDate) {
-      newErrors.warrentyEndDate = "Warenty end date is required";
+      newErrors.warrentyEndDate = "Warrenty end date is required";
     }
 
     if (!assetsValues.assetDescription >= 1) {
       newErrors.assetDescription = "Asset description contain at list one word";
     }
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // if (Object.keys(newErrors).length === 0) {
+    //   axios
+    //     .post("http://localhost:4000/assets", assetsValues)
+    //     .then((res) => {
+    //       console.log(res);
+    //       Swal.fire({
+    //         title: "Submitted Successfully!",
+    //         icon: "success",
+    //         draggable: true,
+    //       });
+    //       setAssetsValues({
+    //         assetName: "",
+    //         assetType: "",
+    //         assetCost: "",
+    //         assetStatus: "",
+    //         lastMaintenanceDate: "",
+    //         nextMaintenanceDate: "",
+    //         assetPurchesDate: "",
+    //         warrentyEndDate: "",
+    //         assetDescription: "",
+    //       });
+    //       setErrors({});
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   Swal.fire({
+    //     title: "Enter all Fields!",
+    //     icon: "error",
+    //     draggable: true,
+    //   });
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -97,6 +123,8 @@ const Assets = () => {
         icon: "error",
         draggable: true,
       });
+      console.log(errors);
+      
     }
   };
 
@@ -136,7 +164,7 @@ const Assets = () => {
                 onChange={handleChanges}
                 id="select"
               >
-                <option className="option"  selected>
+                <option className="option" >
                   Select Asset Type...
                 </option>
                 <option className="option" value="Elevators">
@@ -162,7 +190,7 @@ const Assets = () => {
                 </option>
               </select>
               {errors.assetType && <p>{errors.assetType}</p>}
-              
+
               <label htmlFor="">
                 Asset Cost:<span className="span">*</span>
               </label>
@@ -177,12 +205,12 @@ const Assets = () => {
               <label htmlFor="">
                 Asset Status:<span className="span">*</span>
               </label>
-            
+
               <select
                 name="assetStatus"
                 onChange={handleChanges}
                 value={assetsValues.assetStatus}
-                id="select"
+                id=""
               >
                 <option className="option" value="">
                   Select Asset Status...

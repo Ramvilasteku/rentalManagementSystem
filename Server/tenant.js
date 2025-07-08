@@ -1,5 +1,6 @@
 const express = require("express");
 const sql = require('mysql2');
+const cors = require("cors")
 
 const app = express();
 
@@ -12,6 +13,11 @@ const db = sql.createConnection({
 })
 
 app.use(express.json());
+app.use(cors({
+	origin: "http://localhost:5173",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	credentials: true
+}))
 
 
 app.get('/tenants', (req, res) => {
@@ -63,7 +69,7 @@ app.delete('/tenants', (req, res) => {
 })
 
 
-app.listen(6000, () => {
+app.listen(4000, () => {
 	console.log("server started at tenant");
 
 })

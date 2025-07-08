@@ -1,5 +1,6 @@
 const express = require("express");
 const sql = require("mysql2");
+const cors = require("cors")
 
 const app = express();
 
@@ -12,6 +13,11 @@ const db = sql.createConnection({
 });
 
 app.use(express.json());
+app.use(cors({
+	origin: "http://localhost:5173",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	credentials: true
+}))
 
 app.get('/assets', (req, res) => {
 	const sql = `SELECT * FROM assets`;
@@ -48,7 +54,7 @@ app.put('/assets', (req, res) => {
 
 })
 
-app.delete("/", (req, res) => {
+app.delete("/assets", (req, res) => {
 	const {assetId} = req.body;
 	const sql = `DELETE FROM assets WHERE assetId = ?`;
 	db.query(sql, [assetId], (err, result) => {
@@ -61,7 +67,7 @@ app.delete("/", (req, res) => {
 
 
 
-app.listen(7000, () => {
+app.listen(4000, () => {
 	console.log("server started at assets");
 
 })
